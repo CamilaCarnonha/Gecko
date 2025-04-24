@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtora Gecko - Vídeos de Academia e Esportes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- CSS do Carrossel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+  <style>
+    :root {
+      --primary: #f26419;
+      --secondary: #0e0e0e;
+      --text-light: #f8f8f8;
+      --text-muted: #aaaaaa;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    header img {
+      max-width: 150px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover {
+      transform: scale(1.05);
+    }
+    
+    h1, h2, h3 {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--text-light);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .feature-item {
+      flex: 1;
+      min-width: 250px;
+      max-width: 300px;
+      padding: 30px 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(242, 100, 25, 0.1);
+    }
+    
+    .feature-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .feature-item p {
+      font-size: 1rem;
+    }
+    
+    /* Estilos do Carrossel de Vídeos Verticais */
+    .portfolio {
+      padding: 60px 0;
+      background: rgba(0,0,0,0.3);
+    }
+    
+    .swiper {
+      width: 100%;
+      padding: 30px 0 50px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    
+    .swiper-slide {
+      background: #000;
+      width: 250px;
+      height: 445px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .video-info {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 5px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    .video-info h3 {
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+    
+    .video-info p {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin: 0;
+      text-align: left;
+    }
+    
+    .swiper-pagination-bullet {
+      background: var(--text-light);
+      opacity: 0.5;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background: var(--primary);
+      opacity: 1;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--primary);
+    }
+    
+    .cta {
+      background: linear-gradient(rgba(14,14,14,0.85), rgba(14,14,14,0.85)), url('images/backgroundcta.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 80px 20px;
+      border-radius: 10px;
+      margin: 40px auto;
+      max-width: 1000px;
+      min-height: 300px;
+    }
+    
+    .cta a {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--text-light);
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(242, 100, 25, 0.4);
+      margin-top: 20px;
+    }
+    
+    .cta a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(242, 100, 25, 0.6);
+      background-color: #e05c17;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.7rem;
+      }
+      
+      section {
+        padding: 40px 20px;
+      }
+      
+      .feature-item {
+        min-width: 100%;
+      }
+      
+      .swiper {
+        max-width: 100%;
+      }
+      
+      .cta {
+        padding: 60px 20px;
+        min-height: 250px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .swiper-slide {
+        width: 280px;
+        height: 500px;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo Gecko" class="fade-in">
+      <h1 class="fade-in delay-1">GECKO — se fala 'Guéco'</h1>
+      <p class="fade-in delay-2">Se vê com impacto.</p>
+    </header>
+
+    <section>
+      <h2 class="fade-in">Quem Somos</h2>
+      <p class="fade-in delay-1">Somos uma produtora especializada em vídeos de academia e esportes. Captamos suor, força e verdade em cada frame.</p>
+    </section>
+
+    <section>
+      <h2 class="fade-in">O que fazemos</h2>
+      <div class="features">
+        <div class="feature-item fade-in">
+          <h3>Treinos e Atletas</h3>
+          <p>Captamos a essência do treino e a dedicação dos atletas com imagens que inspiram.</p>
+        </div>
+        <div class="feature-item fade-in delay-1">
+          <h3>Marcas Fitness</h3>
+          <p>Destaque sua marca com vídeos profissionais que mostram seu produto em ação.</p>
+        </div>
+        <div class="feature-item fade-in delay-2">
+          <h3>Eventos Esportivos</h3>
+          <p>Cobertura completa de eventos com edição dinâmica que captura a energia do momento.</p>
+        </div>
+        <div class="feature-item fade-in delay-3">
+          <h3>Conteúdo para Redes</h3>
+          <p>Reels e conteúdo otimizado para redes sociais que engaja seu público.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção do Carrossel com YouTube Shorts -->
+    <section class="portfolio fade-in">
+      <div class="container">
+        <h2>Nossos Trabalhos</h2>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <!-- Vídeo 1 - YouTube Shorts -->
+            <div class="swiper-slide">
+              <div class="video-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/MbVjdstSY94?enablejsapi=1&autoplay=0&mute=0&controls=1&loop=1&rel=0" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                  loading="lazy"
+                  class="youtube-video"
+                ></iframe>
+                <div class="video-info">
+                  <h3>Treinão</h3>
+                  <p>Cada gota de suor sua vale um take</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Vídeo 2 -->
+            <div class="swiper-slide">
+              <div class="video-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/VHKYIzfUKIc?enablejsapi=1&autoplay=0&mute=0&controls=1&loop=1&rel=0" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                  loading="lazy"
+                  class="youtube-video"
+                ></iframe>
+                <div class="video-info">
+                  <h3>Roupas Fitness</h3>
+                  <p>Produza o melhor conteúdo para sua marca</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Vídeo 3 -->
+            <div class="swiper-slide">
+              <div class="video-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/haJfBCb1Whs?enablejsapi=1&autoplay=0&mute=0&controls=1&loop=1&rel=0" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                  loading="lazy"
+                  class="youtube-video"
+                ></iframe>
+                <div class="video-info">
+                  <h3>Crossfit</h3>
+                  <p>Mostre o melhor que o cross pode oferecer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="fade-in">Por que GECKO?</h2>
+      <p class="fade-in delay-1">Gecko é ágil. Vê no escuro. Se adapta. É assim que filmamos: com olhar afiado e edição precisa. Nossa abordagem combina técnica cinematográfica com compreensão profunda do mundo fitness para criar vídeos que realmente se conectam com seu público.</p>
+    </section>
+
+    <section class="cta fade-in">
+      <h2>Pronto para elevar sua marca?</h2>
+      <p>Entre em contato e vamos criar algo incrível juntos.</p>
+      <a href="https://wa.me/5531994662006" target="_blank">Fale com a gente no WhatsApp</a>
+    </section>
+
+    <footer>
+      © 2025 Produtora Gecko. Todos os direitos reservados.
+    </footer>
+  </div>
+
+  <!-- JavaScript do Carrossel -->
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiper = new Swiper('.swiper', {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 20,
+        loop: true,
+        
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        on: {
+          slideChange: function() {
+            // Pausa todos os vídeos ao mudar de slide
+            document.querySelectorAll('.youtube-video').forEach(video => {
+              video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            });
+          },
+        }
+      });
+    });
+  </script>
+</body>
+</html>
