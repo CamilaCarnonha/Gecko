@@ -1,0 +1,8 @@
+# Ignora todos os arquivos .DS_Store em qualquer lugar
+.DS_Store
+
+# Ignora todos os arquivos .log dentro da pasta logs/
+logs/*.log
+
+index.html_old
+
